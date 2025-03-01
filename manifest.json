@@ -1,0 +1,35 @@
+{
+  "name": "Dynamic DNS",
+  "version": "v1.0.0",
+  "description": "A Dynamic DNS service add-on for RaspAP",
+  "author": "Bill Z",
+  "author_uri": "https://github.com/billz",
+  "plugin_uri": "https://github.com/RaspAP/DynDNS",
+  "plugin_docs": "https://docs.raspap.com/dynamicdns/",
+  "license": "GPL-3.0",
+  "namespace": "RaspAP\\Plugins\\DynDNS",
+  "configuration": [
+    {
+      "source": "config/ddns-services.json",
+      "destination": "config/ddns-services.json"
+    }
+  ],
+  "default_locale": "en_US",
+  "dependencies": {
+    "ddclient": "3.10.0-2"
+  },
+  "icon": "fas fa-globe",
+  "install_path": "plugins-available",
+  "javascript": {
+    "source": "templates/app/js/DynDNS.js"
+  },
+  "manifest_version": "1.0",
+  "sudoers": [
+    "www-data ALL=(ALL) NOPASSWD:/bin/cp /tmp/ddclientddata /etc/ddclient.conf",
+    "www-data ALL=(ALL) NOPASSWD:/bin/systemctl start ddclient.service",
+    "www-data ALL=(ALL) NOPASSWD:/bin/systemctl stop ddclient.service",
+    "www-data ALL=(ALL) NOPASSWD:/bin/cat /etc/ddclient.conf",
+    "www-data ALL=(ALL) NOPASSWD:/usr/bin/ddclient -daemon=0 -debug -verbose -noquiet"
+  ]
+}
+
