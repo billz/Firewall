@@ -3,9 +3,9 @@
 /**
  * Firewall Plugin
  *
- * @description A Firewall plugin that implements iptables rules for RaspAP
+ * @description A Firewall plugin that implements an iptables rule set
  * @author      zbchristian <christian@zeitnitz.de>
- * @author      Bill Zimmerman <billzimmerman@gmail.com> (adapted as plugin)
+ * @author      Bill Zimmerman <billzimmerman@gmail.com>
  * @license     https://github.com/RaspAP/raspap-insiders/blob/master/LICENSE
  * @see         src/RaspAP/Plugins/PluginInterface.php
  * @see         src/RaspAP/UI/Sidebar.php
@@ -65,7 +65,7 @@ class Firewall implements PluginInterface
 
             if (!RASPI_MONITOR_ENABLED) {
                 
-                $fw_conf = getFirewallConfiguration();
+                $fw_conf = $this->getFirewallConfiguration();
                 $ap_device = $fw_conf["ap-device"];
                 $str_clients = $fw_conf["client-list"];
 
@@ -133,7 +133,7 @@ class Firewall implements PluginInterface
                     'ap_device' => $ap_device,
                     'str_clients' => $str_clients,
                     'fw_conf' => $fw_conf,
-                    'vpn_ips' => $this->getVPN_IPs();
+                    'vpn_ips' => $this->getVPN_IPs(),
                     'action' => 'plugin__'.$this->getName(),
                     'pluginName' => $this->getName()
                 ];
@@ -145,6 +145,7 @@ class Firewall implements PluginInterface
             }
             return false;
         }
+        return true;
     }
 
     /**
