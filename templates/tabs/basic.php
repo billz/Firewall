@@ -2,12 +2,14 @@
 <div class="tab-pane active" id="firewallbasic">
   <div class="row">
     <div class="col-lg-12">
-      <h4><?php echo _("Client Firewall"); ?></h4>
+      <h4 class="mt-3"><?php echo _("Client Firewall"); ?></h4>
+
       <?php if ( $fw_conf["firewall-enable"]) : ?>
          <i class="fas fa-circle me-2 service-status-up"></i><?php echo _("Firewall is ENABLED"); ?>
       <?php else : ?>
          <i class="fas fa-circle me-2 service-status-down"></i><?php echo _("Firewall is OFF"); ?>
       <?php endif ?>
+
       <div class="row">
         <div class="col-md-6">
           <p class="me-2">
@@ -62,7 +64,9 @@
                 </small>
               </p>
           </div>
+
         </div>
     </div><!-- /.row -->
   </div><!-- /.tab-pane | basic tab -->
+</div>
 

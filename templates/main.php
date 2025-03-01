@@ -11,17 +11,18 @@
         <button type="button" class="btn btn-success firewall-apply" data-firewall-action="firewall-enable" data-bs-toggle="modal" data-bs-target="#firewallModal"/>
           <?php echo _("Enable Firewall") ?>
         </button>
-    <?php endif ?>
+    <?php endif; ?>
   <?php endif; ?>
 <?php $buttons = ob_get_clean(); ob_end_clean() ?>
 
 <div class="row">
   <div class="col-lg-12">
     <div class="card">
+
       <div class="card-header">
         <div class="row">
           <div class="col">
-            <i class="fas fa-fire-alt me-2"></i><?php echo _("Firewall"); ?>
+            <i class="fas <?php echo $__template_data['icon']; ?> me-2"></i><?php echo _($__template_data['title']); ?>
           </div>
           <div class="col">
             <button class="btn btn-light btn-icon-split btn-sm service-status float-end">
@@ -34,7 +35,7 @@
 
       <div class="card-body">
         <?php $status->showMessages(); ?>
-        <form id="frm-firewall" action="<?php echo $__template_data['action']; ?>" method="POST" >
+        <form id="frm-firewall" action="<?php echo $__template_data['action']; ?>" method="POST">
           <?php echo CSRFTokenFieldTag(); ?>
 
           <!-- Nav tabs -->
@@ -43,16 +44,16 @@
            <li class="nav-item"><a class="nav-link" id="firewallabouttab" href="#firewallabout" data-bs-toggle="tab"><?php echo _("About"); ?></a></li>
           </ul>
 
-           <!-- Tab panes -->
-            <div class="tab-content">
-              <?php echo renderTemplate("tabs/basic", $__template_data, $__template_data['pluginName']) ?>
-             <?php echo renderTemplate("tabs/about", $__template_data, $__template_data['pluginName']) ?>
-            </div><!-- /.tab-content -->
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <?php echo renderTemplate("tabs/basic", $__template_data, $__template_data['pluginName']) ?>
+            <?php echo renderTemplate("tabs/about", $__template_data, $__template_data['pluginName']) ?>
+          </div><!-- /.tab-content -->
 
           <?php echo $buttons ?>
-
-          </form>
+        </form>
       </div><!-- /.card-body -->
+
       <div class="card-footer"> <?php echo _("Information provided by iptables"); ?></div>
     </div><!-- /.card -->
   </div><!-- /.col-lg-12 -->

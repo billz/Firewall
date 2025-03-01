@@ -123,7 +123,7 @@ class Firewall implements PluginInterface
 
                 // Populate template data
                 $__template_data = [
-                    'title' => _('Firewall Plugin'),
+                    'title' => _('Firewall'),
                     'description' => _('A firewall plugin that implements an iptables ruleset'),
                     'author' => _('zbchristian'),
                     'uri' => 'https://github.com/RaspAP/raspap-insiders',
