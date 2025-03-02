@@ -60,7 +60,7 @@
 </div><!-- /.row -->
 
 <!-- Custom Plugin JS -->
-<script src="/app/js/plugins/DynDNS.js"></script>
+<script src="/app/js/plugins/Firewall.js"></script>
 
 <!-- Modal -->
 <div class="modal fade" id="firewallModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
