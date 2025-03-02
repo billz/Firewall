@@ -23,6 +23,8 @@ class Firewall implements PluginInterface
     private string $pluginName;
     private string $templateMain;
     private string $serviceStatus;
+    private string $iptablesScript;
+    private string $iptablesv6Script;
     private string $firewallConfig;
 
     public function __construct(string $pluginPath, string $pluginName)
@@ -30,6 +32,8 @@ class Firewall implements PluginInterface
         $this->pluginPath = $pluginPath;
         $this->pluginName = $pluginName;
         $this->templateMain = 'main';
+        $this->iptablesScript = "/tmp/iptables_raspap.sh";
+        $this->iptablesv6Script = "/tmp/ip6tables_raspap.sh";
         $this->firewallConfig = RASPI_CONFIG.'/networking/firewall/firewall.conf';
      }
 
@@ -143,9 +147,8 @@ class Firewall implements PluginInterface
                 ));
                 return true;
             }
-            return false;
         }
-        return true;
+        return false;
     }
 
     /**
@@ -300,15 +303,15 @@ class Firewall implements PluginInterface
         $ipt  = json_decode($json, true);
         $conf = $this->ReadFirewallConf();
         $txt = "#!/bin/bash\n";
-        file_put_contents(RASPAP_IPTABLES_SCRIPT, $txt);
-        file_put_contents(RASPAP_IP6TABLES_SCRIPT, $txt);
-        file_put_contents(RASPAP_IPTABLES_SCRIPT, 'IPT="iptables"'."\n", FILE_APPEND);
-        file_put_contents(RASPAP_IP6TABLES_SCRIPT, 'IPT="ip6tables"'."\n", FILE_APPEND);
+        file_put_contents($this->iptablesScript, $txt);
+        file_put_contents($this->iptablesv6Script, $txt);
+        file_put_contents($this->iptablesScript, 'IPT="iptables"'."\n", FILE_APPEND);
+        file_put_contents($this->iptablesv6Script, 'IPT="ip6tables"'."\n", FILE_APPEND);
         $txt = "\$IPT -F\n";
-        $txt .= "\$IPT -X\n";
-        $txt .= "\$IPT -t nat -F\n";
-        file_put_contents(RASPAP_IPTABLES_SCRIPT, $txt, FILE_APPEND);
-        file_put_contents(RASPAP_IP6TABLES_SCRIPT, $txt, FILE_APPEND);
+        $txt.= "\$IPT -X\n";
+        $txt.= "\$IPT -t nat -F\n";
+        file_put_contents($this->iptablesScript, $txt, FILE_APPEND);
+        file_put_contents($this->iptablesv6Script, $txt, FILE_APPEND);
         if (empty($conf) || empty($ipt) ) {
             return false;
         }
@@ -319,9 +322,11 @@ class Firewall implements PluginInterface
                     if ($this->isRuleEnabled($sect, $conf) ) {
                         $str_rules= $this->createRuleStr($sect, $conf);
                         if (!empty($str_rules) ) {
-                            if (isIPv4($sect) ) { file_put_contents(RASPAP_IPTABLES_SCRIPT, $str_rules, FILE_APPEND);
+                            if ($this->isIPv4($sect) ) {
+                                file_put_contents($this->iptablesScript, $str_rules, FILE_APPEND);
                             }
-                            if (isIPv6($sect) ) { file_put_contents(RASPAP_IP6TABLES_SCRIPT, $str_rules, FILE_APPEND);
+                            if ($this->isIPv6($sect) ) {
+                                file_put_contents($this->iptablesv6Script, $str_rules, FILE_APPEND);
                             }
                             ++$count;
                         }
@@ -330,14 +335,14 @@ class Firewall implements PluginInterface
             }
         }
         if ($count > 0 ) {
-            exec("chmod +x ".RASPAP_IPTABLES_SCRIPT);
-            exec("sudo ".RASPAP_IPTABLES_SCRIPT);
+            exec("chmod +x ".$this->iptablesScript);
+            exec("sudo ".$this->iptablesScript);
             exec("sudo iptables-save | sudo tee /etc/iptables/rules.v4");
-            unlink(RASPAP_IPTABLES_SCRIPT);
-            exec("chmod +x ".RASPAP_IP6TABLES_SCRIPT);
-            exec("sudo ".RASPAP_IP6TABLES_SCRIPT);
+            unlink($this->iptablesScript);
+            exec("chmod +x ".$this->iptablesv6Script);
+            exec("sudo ".$this->iptablesv6Script);
             exec("sudo ip6tables-save | sudo tee /etc/iptables/rules.v6");
-            unlink(RASPAP_IP6TABLES_SCRIPT);
+            unlink($this->iptablesv6Script);
         }
         return ($count > 0);
     }
