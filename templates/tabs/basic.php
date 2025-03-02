@@ -60,7 +60,7 @@
                 <small>
                   <?php echo _("For the given IP-addresses (separated by a blank or comma) the incoming connection (via TCP and UDP) is accepted."); ?><br />
                   <?php echo _("This is required for an OpenVPN via UDP or Wireguard connection."); ?><br />
-                  <?php if ( !empty($vpn_ips) ) printf (_("The list of configured VPN server IP addresses: <code><b>%s</b></code>"), $vpn_ips); ?>
+                  <?php if ( !empty($vpn_ips) ) printf (_("The list of configured VPN server IP addresses: <code><b>%s</b></code>"), str_replace(" ", ", ", $vpn_ips)); ?>
                 </small>
               </p>
           </div>
