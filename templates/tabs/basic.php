@@ -3,20 +3,18 @@
   <div class="row">
     <div class="col-lg-12">
       <h4 class="mt-3"><?php echo _("Client Firewall"); ?></h4>
-
       <?php if ( $fw_conf["firewall-enable"]) : ?>
          <i class="fas fa-circle me-2 service-status-up"></i><?php echo _("Firewall is ENABLED"); ?>
       <?php else : ?>
          <i class="fas fa-circle me-2 service-status-down"></i><?php echo _("Firewall is OFF"); ?>
       <?php endif ?>
-
       <div class="row">
         <div class="col-md-6">
           <p class="me-2">
             <small>
               <?php echo _("The default firewall will only allow outgoing and already established traffic."); ?><br />
               <?php echo _("No incoming UDP traffic is allowed."); ?><br />
-              <?php printf(_("There are no restrictions for the access point <code>%s</code>."), $ap_device); ?>
+              <?php printf(_("There are no restrictions for the access point <code>%s</code>."), $__template_data['ap_device']); ?>
             </small>
           </p>
         </div>
@@ -45,8 +43,8 @@
               <p class="mb-0" id="exclusion-description">
                 <small>
                   <?php echo _("Exclude the given network device(s) (separated by a blank or comma) from firewall rules."); ?><br />
-                  <?php printf(_("Current client devices: <code>%s</code>"), $str_clients); ?><br />
-                  <?php printf(_("The access point <code>%s</code> is per default excluded."), $ap_device); ?>
+                  <?php printf(_("Current client devices: <code>%s</code>"), $__template_data['str_clients']); ?><br />
+                  <?php printf(_("The access point <code>%s</code> is per default excluded."), $__template_data['ap_device']); ?>
                 </small>
               </p>
           </div>
@@ -60,7 +58,7 @@
                 <small>
                   <?php echo _("For the given IP-addresses (separated by a blank or comma) the incoming connection (via TCP and UDP) is accepted."); ?><br />
                   <?php echo _("This is required for an OpenVPN via UDP or Wireguard connection."); ?><br />
-                  <?php if ( !empty($vpn_ips) ) printf (_("The list of configured VPN server IP addresses: <code><b>%s</b></code>"), str_replace(" ", ", ", $vpn_ips)); ?>
+                  <?php if ( !empty($__template_data['vpn_ips']) ) printf (_("The list of configured VPN server IP addresses: <code><b>%s</b></code>"), str_replace(" ", ", ", $__template_data['vpn_ips'])); ?>
                 </small>
               </p>
           </div>

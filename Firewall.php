@@ -122,8 +122,7 @@ class Firewall implements PluginInterface
                     $this->WriteFirewallConf($fw_conf);
                     $this->configureFirewall();
                 }
-
-                $serviceStatus = $fw_conf["firewall-enable"] == 0 ? "down" : "up";
+                $serviceStatus = $fw_conf["firewall-enable"] == null ? "down" : "up";
 
                 // Populate template data
                 $__template_data = [

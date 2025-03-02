@@ -1,7 +1,7 @@
 <?php ob_start() ?>
   <?php if (!RASPI_MONITOR_ENABLED) : ?>
     <input type="hidden" name="firewall-action" id="firewall-action" value="" />
-    <?php if ($fw_conf["firewall-enable"]) : ?>
+    <?php if ($__template_data['serviceStatus'] === "up") : ?>
         <input type="submit" class="btn btn-outline btn-primary" value="<?php echo _("Apply changes"); ?>" name="apply-firewall" />
         <button type="button" class="btn btn-warning firewall-apply" data-firewall-action="firewall-disable" data-bs-toggle="modal" data-bs-target="#firewallModal"/>
           <?php echo _("Disable Firewall") ?>
