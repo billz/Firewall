@@ -238,7 +238,7 @@ class Firewall implements PluginInterface
                         break;
                     case "string":
                         if (isset($dep["var"]) ) {
-                            $val=$conf[$dep["var"]];
+                            $val=$conf[$dep["var"]] ?? null;
                         }
                         if (!empty($val) && isset($dep["replace"]) ) {
                             $repl=$dep["replace"];

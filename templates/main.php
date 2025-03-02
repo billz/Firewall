@@ -68,7 +68,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="modal-title" id="ModalLabel">
-          <i class="fas fa-fire-alt me-2"></i><?php if($fw_conf["firewall-enable"]) echo _("Disable Firewall"); else echo _("Enable Firewall"); ?>
+          <i class="fas fa-fire-alt me-2"></i><?php if($__template_data['serviceStatus'] === "up") echo _("Disable Firewall"); else echo _("Enable Firewall"); ?>
         </div>
       </div>
       <div class="modal-body">
