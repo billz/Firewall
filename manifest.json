@@ -1,6 +1,6 @@
 {
   "name": "Firewall",
-  "version": "v1.0.0",
+  "version": "v1.1.0",
   "description": "A Firewall add-on for RaspAP",
   "author": "zbchristian",
   "author_uri": "https://github.com/zbchristian",
@@ -11,7 +11,7 @@
   "configuration": [
     {
       "source": "config/iptables_rules.json",
-      "destination": "config/iptables_rules.json"
+      "destination": "/etc/raspap/networking/firewall/iptables_rules.json"
     }
   ],
   "default_locale": "en_US",
