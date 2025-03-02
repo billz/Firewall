@@ -34,7 +34,7 @@ class Firewall implements PluginInterface
         $this->templateMain = 'main';
         $this->iptablesScript = "/tmp/iptables_raspap.sh";
         $this->iptablesv6Script = "/tmp/ip6tables_raspap.sh";
-        $this->firewallConfig = RASPI_CONFIG.'/networking/firewall/firewall.conf';
+        $this->firewallConfig = RASPI_CONFIG.'/networking/firewall.conf';
      }
 
     /**
