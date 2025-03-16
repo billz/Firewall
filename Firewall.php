@@ -62,7 +62,7 @@ class Firewall implements PluginInterface
     public function handlePageAction(string $page): bool
     {
         // Verify that this plugin should handle the page
-        if (str_starts_with($page, "/plugin__" . $this->getName())) {
+        if (strpos($page, "/plugin__" . $this->getName()) === 0) {
 
             // Instantiate a StatusMessage object
             $status = new \RaspAP\Messages\StatusMessage;
