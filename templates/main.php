@@ -36,7 +36,7 @@
       <div class="card-body">
         <?php $status->showMessages(); ?>
         <form id="frm-firewall" action="<?php echo $__template_data['action']; ?>" method="POST">
-          <?php echo CSRFTokenFieldTag(); ?>
+          <?php echo \RaspAP\Tokens\CSRF::hiddenField();?>
 
           <!-- Nav tabs -->
           <ul class="nav nav-tabs">
