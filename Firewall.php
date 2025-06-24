@@ -13,6 +13,7 @@
 
 namespace RaspAP\Plugins\Firewall;
 
+use RaspAP\Networking\DeviceScanner;
 use RaspAP\Plugins\PluginInterface;
 use RaspAP\UI\Sidebar;
 
@@ -377,7 +378,6 @@ class Firewall implements PluginInterface
             $conf["excl-devices"] = "";
             $conf["excluded-ips"] = "";
             $conf["ap-device"] = "";
-            $conf["client-device"] = "";
             $conf["restricted-ips"] = "";
         }
         exec('ifconfig | grep -E -i "^tun[0-9]"', $ret);
@@ -445,22 +445,19 @@ class Firewall implements PluginInterface
         $json = file_get_contents(RASPI_IPTABLES_CONF);
         getWifiInterface();
         $ap_device = $_SESSION['ap_interface'];
-        $clients = getClients();
-        $str_clients = "";
-        foreach( $clients["device"] as $dev ) {
+        $scanner = new DeviceScanner();
+        $devices = $scanner->listDevices();
+        $str_devices = "";
+        foreach( $devices as $dev ) {
             if (!$dev["isAP"] ) {
-                if (!empty($str_clients) ) {
-                    $str_clients .= ", ";
+                if (!empty($str_devices) ) {
+                    $str_devices .= ", ";
                 }
-                $str_clients .= $dev["name"];
+                $str_devices .= $dev["name"];
             }
         }
         $fw_conf["ap-device"] = $ap_device;
-        $fw_conf["client-list"] = $str_clients;
-        $id=findCurrentClientIndex($clients);
-        if ($id >= 0 ) {
-            $fw_conf["client-device"] = $clients["device"][$id]["name"];
-        }
+        $fw_conf["client-list"] = $str_devices;
         return $fw_conf;
     }
 
