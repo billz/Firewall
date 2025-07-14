@@ -1,10 +1,10 @@
 {
   "name": "Firewall",
-  "version": "v1.1.0",
+  "version": "v1.1.1",
   "description": "A Firewall add-on with iptables rules tailored for RaspAP",
   "author": "zbchristian",
   "author_uri": "https://github.com/zbchristian",
-  "plugin_uri": "https://github.com/RaspAP/raspap-insiders",
+  "plugin_uri": "https://github.com/billz/Firewall",
   "plugin_docs": "https://docs.raspap.com/firewall/",
   "license": "GPL-3.0",
   "namespace": "RaspAP\\Plugins\\Firewall",
@@ -16,7 +16,7 @@
   ],
   "default_locale": "en_US",
   "icon": "fas fa-fire-alt",
-  "install_path": "plugins-available",
+  "install_path": "plugins",
   "javascript": {
     "source": "templates/app/js/Firewall.js"
   },
