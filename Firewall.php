@@ -13,6 +13,7 @@
 
 namespace RaspAP\Plugins\Firewall;
 
+use RaspAP\Networking\Hotspot\WiFiManager;
 use RaspAP\Networking\DeviceScanner;
 use RaspAP\Plugins\PluginInterface;
 use RaspAP\UI\Sidebar;
@@ -440,12 +441,13 @@ class Firewall implements PluginInterface
      */
     protected function getFirewallConfiguration()
     {
+        $wifi = new WiFiManager(); 
+        $scanner = new DeviceScanner();
         $fw_conf = $this->ReadFirewallConf();
 
         $json = file_get_contents(RASPI_IPTABLES_CONF);
-        getWifiInterface();
+        $wifi->getWifiInterface();
         $ap_device = $_SESSION['ap_interface'];
-        $scanner = new DeviceScanner();
         $devices = $scanner->listDevices();
         $str_devices = "";
         foreach( $devices as $dev ) {
